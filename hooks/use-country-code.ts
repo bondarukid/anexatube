@@ -6,8 +6,8 @@ import { getBrowserLocaleCountryCode } from "@/lib/geolocation/country-code"
 
 export function useCountryCode() {
   return React.useSyncExternalStore(
-      () => () => {},
-      getBrowserLocaleCountryCode,
-      () => null,
+    () => () => {},
+    getBrowserLocaleCountryCode,
+    () => null,
   )
 }

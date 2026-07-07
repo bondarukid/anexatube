@@ -3,20 +3,29 @@ import * as React from "react"
 import { cn } from "@/lib/utils"
 
 function Card({
-  className,
-  size = "default",
-  ...props
-}: React.ComponentProps<"div"> & { size?: "default" | "sm" }) {
+                className,
+                size = "default",
+                variant = "default",
+                ...props
+              }: React.ComponentProps<"div"> & {
+  size?: "default" | "sm"
+  variant?: "default" | "video"
+}) {
   return (
-    <div
-      data-slot="card"
-      data-size={size}
-      className={cn(
-        "group/card flex flex-col gap-(--card-spacing) overflow-hidden rounded-xl bg-card py-(--card-spacing) text-sm text-card-foreground ring-1 ring-foreground/10 [--card-spacing:--spacing(4)] has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(3)] data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl",
-        className
-      )}
-      {...props}
-    />
+      <div
+          data-slot="card"
+          data-size={size}
+          className={cn(
+              // Базовые стили для ОБЫЧНОЙ карточки
+              variant === "default" && "ring-1 ring-foreground/10 bg-card py-(--card-spacing) text-card-foreground shadow-sm",
+              // Стили специально для ЮТУБ карточки (убираем кольцо, фон, сбрасываем вертикальные паддинги)
+              variant === "video" && "ring-0 bg-transparent py-0 text-foreground",
+
+              "group/card flex flex-col gap-(--card-spacing) overflow-hidden rounded-xl text-sm [--card-spacing:--spacing(4)] has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(3)] data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl",
+              className
+          )}
+          {...props}
+      />
   )
 }
 
